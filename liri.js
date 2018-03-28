@@ -79,10 +79,10 @@ function spotify() {
     } else {
         //Print default: "The Sign" by Ace of Base	
         spotify.search({ type: 'track', query: 'The Sign', artist: 'Ace of Base' }, function(err, body) {
-            
+
             // If request is successful
             if (!error && response.statusCode === 200) {
-                
+
                 // Parse the body of the site and recover needed information
                 console.log("Artist: " + JSON.parse(body).Artist +
                     "\nSong Title: " + JSON.parse(body).Title +
@@ -150,17 +150,33 @@ function movie() {
 // `do-what-it-says`Function
 function random() {
 
-	//Read info from text file
+    //Read info from text file
     fs.readFile("random.txt", "utf8", function(err, data) {
 		if (err) {
-			return console.log(err);
+		  return console.log(err);
 		}
 
-	//Split information in file
-	data.split(",");
+		//Split information in file
+		data.split(",");
+	}
 
 	//Call listed command + input
 	action();
 
-	}
 };
+
+// *Bonus* Log.txt
+var logFile = require("log.txt");
+var logData = action + userInput;
+
+fs.appendFile(logFile, logData, function(err) {
+	
+	if (err) {
+	  console.log(err);
+
+	} else {
+	  console.log("Content Added!");
+
+    }
+    
+});
